@@ -24,9 +24,13 @@ $(function () {
   // Invoco funzione per generare numeri
   rndNumbersGenerator();
   // Un alert espone 5 numeri casuali diversi
+  alert(
+    'Simon Says by Andrea Di Cataldi ©\n\nLo scopo del gioco è memorizzare i 5 numeri iniziali.\nDopo 30 secondi ti verrà richiesto di inserire tutti i numeri che ti ricordi uno alla volta.\nBuona fortuna!'
+  );
   alert("Questi sono i numeri che dovrai ricordare: " + rndNumbers);
   //Dopo 30 secondi l'utente deve inserire un prompt alla volta, i numeri che ha visto precedentemente
-  setTimeout(function () {
+  // VERSIONE SET TIMEOUT
+  /* setTimeout(function () {
     ask5Times();
     //Una volta inseriti i numeri, il software dice quanti e quali numeri sono stati ricordati
     alert(
@@ -35,5 +39,23 @@ $(function () {
         " numeri.\nI numeri che ti sei ricordato sono: " +
         userNumbers
     );
-  }, 30000);
+  }, 30000); */
+  var seconds = 30;
+  // VERSIONE SET INTERVAL CON COUNTDOWN GRAFICO
+  var interval = setInterval(function () {
+    document.getElementById("secondi").innerHTML = seconds;
+    if (seconds === 0) {
+      ask5Times();
+      //Una volta inseriti i numeri, il software dice quanti e quali numeri sono stati ricordati
+      alert(
+        "Hai ricordato " +
+          userNumbers.length +
+          " numeri.\nI numeri che ti sei ricordato sono: " +
+          userNumbers
+      );
+      clearInterval(interval);
+    } else {
+      seconds--;
+    }
+  }, 1000);
 });
